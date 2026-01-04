@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Edit Rental</h2>
+<form method="post">
+<input class="form-control mb-2" name="title" value="{{ rental.title }}">
+<input class="form-control mb-2" name="description" value="{{ rental.description }}">
+<input class="form-control mb-2" name="price" value="{{ rental.rent_price }}">
+<input class="form-control mb-2" name="billing_date" value="{{ rental.billing_date }}">
+<select class="form-control mb-2" name="status">
+<option>Available</option>
+<option>Rented</option>
+</select>
+<button class="btn btn-success">Update</button>
+</form>
+{% endblock %}

@@ -1,0 +1,1 @@
+console.log("Rental Management System Loaded");

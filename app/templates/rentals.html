@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Rental List</h2>
+<table class="table table-bordered">
+<tr>
+<th>Title</th><th>Price</th><th>Billing Date</th><th>Status</th><th>Action</th>
+</tr>
+{% for r in rentals %}
+<tr>
+<td>{{ r.title }}</td>
+<td>{{ r.rent_price }}</td>
+<td>{{ r.billing_date }}</td>
+<td>{{ r.status }}</td>
+<td>
+<a href="/edit/{{ r.id }}" class="btn btn-warning btn-sm">Edit</a>
+<a href="/delete/{{ r.id }}" class="btn btn-danger btn-sm">Delete</a>
+</td>
+</tr>
+{% endfor %}
+</table>
+{% endblock %}
