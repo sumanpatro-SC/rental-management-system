@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Billing Details</h2>
+
+<table class="table table-striped">
+<tr>
+    <th>Property</th>
+    <th>Rent Amount</th>
+    <th>Billing Date</th>
+    <th>Status</th>
+</tr>
+
+{% for r in rentals %}
+<tr>
+    <td>{{ r.title }}</td>
+    <td>₹ {{ r.rent_price }}</td>
+    <td>{{ r.billing_date }}</td>
+    <td>{{ r.status }}</td>
+</tr>
+{% endfor %}
+</table>
+
+{% endblock %}

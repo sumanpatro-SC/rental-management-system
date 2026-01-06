@@ -1,5 +1,31 @@
 {% extends 'base.html' %}
 {% block content %}
+
 <h2>Welcome to Rental Management System</h2>
 <p>Manage rental properties easily with CRUD operations.</p>
+
+<hr>
+
+<h4>Available Rentals</h4>
+
+{% if rentals %}
+<div class="row">
+    {% for r in rentals %}
+    <div class="col-md-4">
+        <div class="card mb-3 shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">{{ r.title }}</h5>
+                <p class="card-text">{{ r.description }}</p>
+                <p><strong>Price:</strong> ₹ {{ r.rent_price }}</p>
+                <p><strong>Billing Date:</strong> {{ r.billing_date }}</p>
+                <span class="badge bg-success">Available</span>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<p class="text-muted">No rental items available right now.</p>
+{% endif %}
+
 {% endblock %}

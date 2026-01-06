@@ -1,10 +1,11 @@
-from flask import render_template, request, redirect, url_for
+from flask import render_template, request, redirect, url_for, jsonify
 from app import app, db
 from app.models import Rental
 
 @app.route('/')
 def home():
-    return render_template('home.html')
+    available_rentals = Rental.query.filter_by(status="Available").all()
+    return render_template('home.html', rentals=available_rentals)
 
 @app.route('/rentals')
 def rentals():
@@ -17,7 +18,7 @@ def add_rental():
         rental = Rental(
             title=request.form['title'],
             description=request.form['description'],
-            rent_price=request.form['price'],
+            rent_price=float(request.form['price']),
             billing_date=request.form['billing_date']
         )
         db.session.add(rental)
@@ -31,7 +32,7 @@ def edit_rental(id):
     if request.method == 'POST':
         rental.title = request.form['title']
         rental.description = request.form['description']
-        rental.rent_price = request.form['price']
+        rental.rent_price = float(request.form['price'])
         rental.billing_date = request.form['billing_date']
         rental.status = request.form['status']
         db.session.commit()
@@ -45,6 +46,28 @@ def delete_rental(id):
     db.session.commit()
     return redirect(url_for('rentals'))
 
-@app.route('/login')
-def login():
-    return render_template('login.html')
+@app.route('/billing')
+def billing():
+    rentals = Rental.query.all()
+    return render_template('billing.html', rentals=rentals)
+
+# 🔥 API ROUTE (JSON RESPONSE)
+@app.route('/api/rentals')
+def rentals_api():
+    rentals = Rental.query.all()
+
+    data = []
+    for r in rentals:
+        data.append({
+            "id": r.id,
+            "title": r.title,
+            "price": r.rent_price,
+            "billing_date": r.billing_date,
+            "status": r.status
+        })
+
+    return jsonify({
+        "success": True,
+        "count": len(data),
+        "rentals": data
+    })
