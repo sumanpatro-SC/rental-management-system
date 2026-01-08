@@ -1,0 +1,51 @@
+name: CI
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+jobs:
+  build-and-smoke-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Syntax check (compile)
+        run: |
+          python -m compileall -q .
+
+      - name: Run unit tests
+        run: |
+          python -m unittest -v
+
+      # Smoke test: start server & hit endpoints
+      - name: Start server (background)
+        env:
+          PORT: "8000"
+        run: |
+          # Start server in background
+          python app.py &
+          echo $! > server.pid
+
+          # Give it a moment to boot
+          sleep 2
+
+      - name: Smoke test endpoints
+        run: |
+          curl -i http://127.0.0.1:8000/ | head -n 20
+          curl -i http://127.0.0.1:8000/api/students | head -n 50
+
+      - name: Stop server
+        if: always()
+        run: |
+          if [ -f server.pid ]; then
+            kill "$(cat server.pid)" || true
+          fi

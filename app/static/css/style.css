@@ -1,3 +1,107 @@
+/* -------- GLOBAL -------- */
 body {
-    background-color: #f8f9fa;
+    background-color: #f5fbff; /* very light pastel blue */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* -------- NAVBAR -------- */
+.navbar {
+    background: linear-gradient(90deg, #b8e7e1, #cfe9ff); /* pastel green → blue */
+}
+
+.navbar-brand,
+.navbar .nav-link {
+    color: #033d3d !important;
+    font-weight: 600;
+}
+
+.navbar .nav-link:hover {
+    color: #0a6b6b !important;
+}
+
+/* -------- CONTAINER -------- */
+.container {
+    flex: 1;
+}
+
+/* -------- HEADINGS -------- */
+h1, h2, h3 {
+    color: #055160;
+    font-weight: 600;
+}
+
+/* -------- CARDS / TABLE -------- */
+.card {
+    border-radius: 12px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* -------- TABLE -------- */
+.table {
+    background-color: #ffffff;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.table thead {
+    background-color: #dff5f2; /* pastel green */
+}
+
+.table th {
+    color: #055160;
+}
+
+.table tbody tr:hover {
+    background-color: #f1fbff;
+}
+
+/* -------- BUTTONS -------- */
+.btn-primary {
+    background-color: #9ad0ec;
+    border: none;
+    color: #033d3d;
+}
+
+.btn-primary:hover {
+    background-color: #7bbfe0;
+}
+
+.btn-success {
+    background-color: #9fe0b5;
+    border: none;
+    color: #034d2c;
+}
+
+.btn-success:hover {
+    background-color: #7fd3a0;
+}
+
+.btn-danger {
+    background-color: #f4a7a7;
+    border: none;
+}
+
+/* -------- FORMS -------- */
+.form-control {
+    border-radius: 8px;
+    border: 1px solid #cfe9ff;
+}
+
+.form-control:focus {
+    box-shadow: 0 0 0 0.2rem rgba(154, 208, 236, 0.4);
+    border-color: #9ad0ec;
+}
+
+/* -------- FOOTER -------- */
+footer {
+    background: linear-gradient(90deg, #cfe9ff, #b8e7e1);
+    color: #033d3d;
+    text-align: center;
+    padding: 15px;
+    margin-top: auto;
+    font-weight: 500;
 }
