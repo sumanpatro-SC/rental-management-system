@@ -1,31 +1,37 @@
 {% extends 'base.html' %}
 {% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="fw-bold">Dashboard</h2>
+    <a href="/add" class="btn btn-primary"><i class="fa-solid fa-plus me-2"></i>Add New Property</a>
+</div>
 
-<h2>Welcome to Rental Management System</h2>
-<p>Manage rental properties easily with CRUD operations.</p>
+<div class="row mb-4">
+    <div class="col-md-4">
+        <div class="card p-3 border-start border-primary border-4 shadow-sm">
+            <small class="text-muted text-uppercase fw-bold">Available Properties</small>
+            <h3 class="fw-bold mb-0">{{ rentals|length }}</h3>
+        </div>
+    </div>
+</div>
 
-<hr>
-
-<h4>Available Rentals</h4>
-
-{% if rentals %}
+<h4 class="mb-3">Featured Listings</h4>
 <div class="row">
     {% for r in rentals %}
-    <div class="col-md-4">
-        <div class="card mb-3 shadow-sm">
+    <div class="col-md-4 mb-4">
+        <div class="card h-100 shadow-sm">
             <div class="card-body">
-                <h5 class="card-title">{{ r.title }}</h5>
-                <p class="card-text">{{ r.description }}</p>
-                <p><strong>Price:</strong> ₹ {{ r.rent_price }}</p>
-                <p><strong>Billing Date:</strong> {{ r.billing_date }}</p>
-                <span class="badge bg-success">Available</span>
+                <div class="d-flex justify-content-between">
+                    <h5 class="fw-bold">{{ r.title }}</h5>
+                    <span class="badge rounded-pill bg-light text-success border border-success">Available</span>
+                </div>
+                <p class="text-muted small mb-3">{{ r.description }}</p>
+                <div class="d-flex justify-content-between align-items-center">
+                    <span class="h5 mb-0 text-primary">₹{{ r.rent_price }}<small class="text-muted">/mo</small></span>
+                    <a href="/edit/{{r.id}}" class="btn btn-sm btn-outline-secondary">Details</a>
+                </div>
             </div>
         </div>
     </div>
     {% endfor %}
 </div>
-{% else %}
-<p class="text-muted">No rental items available right now.</p>
-{% endif %}
-
 {% endblock %}
